@@ -4,24 +4,30 @@
     <meta charset="UTF-8" />
     <title>Резюме</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
+  <body>
+    <header class="header">
+      <div class="container header-container">
+        <div class="logo"></div>
+        <button class="burger" aria-label="Toggle menu">☰</button>
+        <nav class="nav">
+          <a href="#home">Головна</a>
+          <a href="#about">Про мене</a>
+          <a href="#services">Послуги</a>
+          <a href="#contact">Контакти</a>
+        </nav>
+      </div>
+    </header>
 
-  <header class="header">
-    <div class="container header-container">
-      <div class="logo"></div>
-      <button class="burger" aria-label="Toggle menu">☰</button>
-      <nav class="nav">
-        <a href="#home">Головна</a>
-        <a href="#about">Про мене</a>
-        <a href="#services">Послуги</a>
-        <a href="#contact">Контакти</a>
-      </nav>
-    </div>
-  </header>
-  <main id="app"></main>
-  <footer class="footer">
-    <div class="container"><p>© 2025 BoviaN. Усі права захищені.</p></div>
-  </footer>
-  <script type="module" src="src/main.ts"></script>
+    <main id="app"></main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© 2025 BoviaN. Усі права захищені.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
 </html>
