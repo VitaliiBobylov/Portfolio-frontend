@@ -11,6 +11,8 @@ export interface Project {
   link: string;
 }
 
+export type NewProject = Omit<Project, "_id">;
+
 // 2️⃣ Получаем все проекты
 export async function getProjects(): Promise<Project[]> {
   const res = await fetch(API_URL);

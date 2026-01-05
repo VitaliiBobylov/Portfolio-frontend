@@ -394,6 +394,7 @@ body {
 }
 
 @media screen and (max-width: 640px) {
+
   .home-grid,
   .cards {
     grid-template-columns: 1fr;
@@ -429,4 +430,9 @@ body {
   .header-container {
     height: 56px;
   }
+}
+
+
+.hidden {
+  display: none;
 }

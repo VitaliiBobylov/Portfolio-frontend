@@ -4,6 +4,12 @@ import { homePage } from "./pages/home";
 import { aboutPage } from "./pages/about";
 import { servicesPage, initServicesEvents } from "./pages/services";
 import { contactPage, initContactEvents } from "./pages/contact";
+import { registerPage } from "./pages/register";
+import { initRegisterEvents } from "./pages/registerLogic";
+import { isAuthenticated, removeToken } from "./auth/auth";
+import { loginPage, initLoginEvents } from "./pages/login";
+
+
 
 const app = document.getElementById("app") as HTMLElement;
 if (!app) throw new Error("Елемент #app не знайдено");
@@ -24,6 +30,16 @@ async function render(): Promise<void> {
     case "#contact":
       app.innerHTML = await contactPage();
       initContactEvents();
+      break;
+
+    case "#register":
+      app.innerHTML = await registerPage();
+      initRegisterEvents();
+      break;
+
+    case "#login":
+      app.innerHTML = await loginPage();
+      initLoginEvents();
       break;
 
     default:
@@ -68,11 +84,36 @@ function initLogo(): void {
   logoDiv.appendChild(logoImg);
 }
 
+function updateAuthUI() {
+  const loginLink = document.getElementById("loginLink");
+  const logoutLink = document.getElementById("logoutLink");
+
+  if (!loginLink || !logoutLink) return;
+
+  if (isAuthenticated()) {
+    loginLink.style.display = "none";
+    logoutLink.style.display = "inline";
+  } else {
+    loginLink.style.display = "inline";
+    logoutLink.style.display = "none";
+  }
+
+  logoutLink.onclick = () => {
+    removeToken();
+    updateAuthUI();
+    window.location.hash = "#home";
+  };
+}
+
+
+
 window.addEventListener("DOMContentLoaded", async () => {
   initLogo();
+  updateAuthUI();
   await render();
 });
 
 window.addEventListener("hashchange", async () => {
+  updateAuthUI();
   await render();
 });
