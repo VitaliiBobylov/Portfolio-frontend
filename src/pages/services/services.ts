@@ -1,4 +1,7 @@
 // src/pages/services/services.ts
+
+import "./services.css";
+
 import {
   getProjects,
   createProject,
@@ -18,50 +21,47 @@ export async function servicesPage(): Promise<HTMLElement> {
   section.className = "section";
 
   section.innerHTML = `
-    <div class="container">
-      <h2>Проєкти</h2>
-      <div class="home-grid" id="projects-grid">
-        ${projects
+  <div class="container">
+    <h2>Проєкти</h2>
+    <div class="services-grid" id="projects-grid">
+      ${projects
       .map((p) => {
         const isOwner = authenticated && currentUserId === p.authorId;
         return `
-              <div class="home-card">
-                <div class="card-img-wrapper">
-                  <img src="${p.image}" alt="${p.title}" />
-                  ${isOwner ? `<button class="icon-btn delete-btn" data-id="${p._id}">×</button>` : ""}
-                </div>
-                <p>${p.description}</p>
-                <div class="card-buttons">
-                  <a class="button" href="${p.link}" target="_blank">Подивитися</a>
-                  ${isOwner ? `<button class="button edit-btn" data-id="${p._id}">Редагувати</button>` : ""}
-                </div>
+            <div class="services-card">
+              <div class="card-img-wrapper">
+                <img src="${p.image}" alt="${p.title}" />
+                ${isOwner ? `<button class="delete-btn icon-btn" data-id="${p._id}">×</button>` : ""}
               </div>
-            `;
+              <p>${p.description}</p>
+              <div class="card-buttons">
+                <a class="button" href="${p.link}" target="_blank">Подивитися</a>
+                ${isOwner ? `<button class="button edit-btn" data-id="${p._id}">Редагувати</button>` : ""}
+              </div>
+            </div>
+          `;
       })
       .join("")}
-      </div>
-
-      ${authenticated
-      ? `
-        <button id="toggle-form" class="button add-project-btn">Додати проєкт</button>
-        <div id="project-modal" class="modal hidden">
-          <div class="modal-overlay"></div>
-          <div class="modal-content">
-            <button id="close-modal" class="modal-close">×</button>
-            <form id="project-form" class="project-form">
-              <input id="title" placeholder="Назва" required />
-              <input id="image" placeholder="Картинка URL" required />
-              <textarea id="description" placeholder="Опис" required></textarea>
-              <input id="link" placeholder="Посилання на живу сторінку" required />
-              <button class="button">Зберегти</button>
-            </form>
-          </div>
-        </div>
-      `
-      : ""
-    }
     </div>
-  `;
+
+    ${authenticated ? `
+      <button id="toggle-form" class="add-project-btn">Додати проєкт</button>
+      <div id="project-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <button id="close-modal" class="modal-close">×</button>
+          <form id="project-form" class="project-form">
+            <input id="title" placeholder="Назва" required />
+            <input id="image" placeholder="Картинка URL" required />
+            <textarea id="description" placeholder="Опис" required></textarea>
+            <input id="link" placeholder="Посилання на живу сторінку" required />
+            <button class="button">Зберегти</button>
+          </form>
+        </div>
+      </div>
+    ` : ""}
+  </div>
+`;
 
   const grid = section.querySelector("#projects-grid") as HTMLElement;
   const modal = section.querySelector("#project-modal") as HTMLElement | null;
