@@ -12,6 +12,13 @@ export function removeToken(): void {
   localStorage.removeItem(TOKEN_KEY);
 }
 
+// src/auth/auth.ts
 export function isAuthenticated(): boolean {
-  return Boolean(getToken());
+  return !!localStorage.getItem("token"); // простий приклад
+}
+
+// повертає ID поточного користувача
+export function getCurrentUserId(): string | null {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user)._id : null;
 }

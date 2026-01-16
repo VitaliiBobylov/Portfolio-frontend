@@ -23,7 +23,6 @@ body {
     border-bottom: 1px solid var(--border);
     z-index: 1000;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    /* легка тінь для глибини */
 }
 
 .header-container {
@@ -46,12 +45,10 @@ body {
     display: flex;
     align-items: center;
     gap: 24px;
-    /* трохи більше простору виглядає краще */
 }
 
 .nav a {
     font-size: 15px;
-    /* 14px замалий на десктопі */
     font-weight: 500;
     color: var(--text);
     text-decoration: none;
@@ -70,6 +67,7 @@ body {
     border-radius: 8px;
     font-weight: 500;
     transition: background-color 0.2s ease;
+    text-decoration: none;
 }
 
 .btn-login:hover {
@@ -84,6 +82,7 @@ body {
     border-radius: 8px;
     background: transparent;
     transition: all 0.2s ease;
+    text-decoration: none;
 }
 
 .btn-logout:hover {
@@ -100,31 +99,6 @@ body {
     cursor: pointer;
     color: var(--text);
     padding: 4px 8px;
-}
-
-/* Дропдаун форма логіну (якщо використовуєш) */
-.login-form {
-    position: absolute;
-    top: calc(var(--header-height) + 8px);
-    right: 16px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    width: 320px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    z-index: 1001;
-
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
-}
-
-.login-form.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
 }
 
 /* Мобільна версія */

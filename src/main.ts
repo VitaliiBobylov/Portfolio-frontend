@@ -8,8 +8,9 @@ import { renderLayout } from "./components/Layout";
 import { resolveRoute } from "./app/router";
 
 // Отримуємо головний елемент з DOM
-const app: HTMLElement = document.getElementById("app")!;
+
 const headerRoot: HTMLElement = document.getElementById("header-root")!;
+const app: HTMLElement = document.getElementById("app")!;
 const footerRoot: HTMLElement = document.getElementById("footer-root")!;
 
 // Перевірки (додатково для безпеки, можна прибрати, якщо впевнені)
