@@ -1,3 +1,4 @@
+// src/auth/auth.ts
 const TOKEN_KEY = "auth_token";
 
 export function setToken(token: string): void {
@@ -10,15 +11,15 @@ export function getToken(): string | null {
 
 export function removeToken(): void {
   localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem("user"); // якщо зберігаєш ще й user-об'єкт
 }
 
-// src/auth/auth.ts
 export function isAuthenticated(): boolean {
-  return !!localStorage.getItem("token"); // простий приклад
+  return !!getToken(); // тепер використовує ту саму константу — ідеально
 }
 
-// повертає ID поточного користувача
+// повертає ID поточного користувача (якщо потрібно)
 export function getCurrentUserId(): string | null {
   const user = localStorage.getItem("user");
-  return user ? JSON.parse(user)._id : null;
+  return user ? JSON.parse(user)?._id : null;
 }

@@ -37,21 +37,21 @@ export function createHeader(): HTMLElement {
   // Елементи
   const nav = header.querySelector(".nav") as HTMLElement;
   const burger = header.querySelector(".burger") as HTMLElement;
-  const loginBtn = header.querySelector("#loginBtn") as HTMLButtonElement;
-  const logoutBtn = header.querySelector("#logoutBtn") as HTMLButtonElement;
+  const loginBtn = header.querySelector("#loginBtn") as HTMLButtonElement | null;
+  const logoutBtn = header.querySelector("#logoutBtn") as HTMLButtonElement | null;
   const protectedLinks = nav.querySelectorAll("[data-protected]");
 
-  // Модалка (створюється один раз)
+  // Модалка
   const authModal = createAuthModal(() => {
     updateAuthUI();
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   });
   document.body.appendChild(authModal);
 
-  // Бургер-меню
+  // Бургер
   burger.onclick = () => nav.classList.toggle("active");
 
-  // Оновлення UI авторизації
+  // Оновлення UI
   function updateAuthUI() {
     const auth = isAuthenticated();
 
@@ -59,25 +59,34 @@ export function createHeader(): HTMLElement {
       (link as HTMLElement).style.display = auth ? "inline-block" : "none";
     });
 
-    loginBtn.style.display = auth ? "none" : "inline-block";
-    logoutBtn.style.display = auth ? "inline-block" : "none";
+    if (loginBtn) loginBtn.style.display = auth ? "none" : "inline-block";
+    if (logoutBtn) logoutBtn.style.display = auth ? "inline-block" : "none";
   }
 
   updateAuthUI();
 
   // Події
-  loginBtn.onclick = () => {
-    authModal.classList.remove("hidden");
-    document.body.style.overflow = "hidden"; // блокуємо скрол під модалкою
-  };
+  if (loginBtn) {
+    loginBtn.onclick = () => {
+      authModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    };
+  }
 
-  logoutBtn.onclick = () => {
-    removeToken();
-    updateAuthUI();
-    window.location.hash = "#home";
-  };
+  if (logoutBtn) {
+    logoutBtn.onclick = () => {
+      removeToken();                        // видаляємо токен + user (якщо є)
 
-  // Закриття модалки при кліку поза нею або Escape вже є в createAuthModal
+      updateAuthUI();                       // оновлюємо хедер
+
+      // Переходимо на головну та перерендерюємо контент
+      window.location.hash = "#home";
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+
+      // Опціонально: повне перезавантаження сторінки (найнадійніше для очищення стану)
+      // window.location.reload();
+    };
+  }
 
   return header;
 }
